@@ -1,0 +1,45 @@
+.env
+.env.*
+!.env.example
+.venv/
+node_modules/
+dist/
+/uploads/
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.production.local
+
+# backend
+backend/.venv/
+backend/.env
+backend/.pytest_cache/
+backend/.mypy_cache/
+backend/.ruff_cache/
+backend/uploads/
+backend/**/__pycache__/
+backend/**/*.py[cod]
+deploy/backend.env
+
+# misc
+.DS_Store
+Thumbs.db
+
+# generic logs and temp artifacts
+*.log
+build/
+.cache/
+*.tmp
+.runtime_logs/
+
+# private working artifacts not needed in the public repo
+AGENTS.md
+DESIGN/
