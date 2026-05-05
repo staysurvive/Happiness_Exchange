@@ -1,0 +1,85 @@
+services:
+  db:
+    image: docker.io/library/postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-happy_exchange}
+      POSTGRES_USER: ${POSTGRES_USER:-happy_app}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change-this-db-password}
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-happy_app} -d ${POSTGRES_DB:-happy_exchange}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - app_net
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Containerfile
+    restart: unless-stopped
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
+    env_file:
+      - ./deploy/backend.env
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-happy_app}:${POSTGRES_PASSWORD:-change-this-db-password}@db:5432/${POSTGRES_DB:-happy_exchange}
+      UPLOAD_DIR: /srv/backend/uploads
+      PRESET_ASSETS_DIR: /srv/assets
+    depends_on:
+      - db
+    volumes:
+      - backend_uploads:/srv/backend/uploads
+    expose:
+      - "8000"
+    networks:
+      - app_net
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Containerfile
+      args:
+        VITE_API_BASE_URL: /api/v1
+    restart: unless-stopped
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
+    depends_on:
+      - backend
+    expose:
+      - "80"
+    networks:
+      - app_net
+
+  caddy:
+    image: docker.io/library/caddy:2.10-alpine
+    restart: unless-stopped
+    environment:
+      APP_DOMAIN: ${APP_DOMAIN:-example.com}
+    depends_on:
+      - frontend
+      - backend
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - app_net
+
+volumes:
+  pg_data:
+  backend_uploads:
+  caddy_data:
+  caddy_config:
+
+networks:
+  app_net:
+    driver: bridge
