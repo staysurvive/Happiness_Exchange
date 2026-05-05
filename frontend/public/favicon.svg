@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="26" y1="28" x2="222" y2="228" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFF6B4" />
+      <stop offset="0.34" stop-color="#FFD08B" />
+      <stop offset="0.63" stop-color="#F49AD0" />
+      <stop offset="1" stop-color="#9CB8FF" />
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(52 56) rotate(51.5) scale(175 219)">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.95" />
+      <stop offset="0.28" stop-color="#FFFFFF" stop-opacity="0.28" />
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0" />
+    </radialGradient>
+    <filter id="soft-shadow" x="34" y="34" width="188" height="188" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#9E62E5" flood-opacity="0.22" />
+    </filter>
+  </defs>
+
+  <rect x="10" y="10" width="236" height="236" rx="46" fill="url(#bg)" />
+  <rect x="10" y="10" width="236" height="236" rx="46" fill="url(#glow)" />
+
+  <g filter="url(#soft-shadow)" stroke="#FFFDFE" stroke-width="18" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M69 141C58 113 65 81 87 60C114 35 155 30 188 46C204 54 216 66 224 81" />
+    <path d="M193 64L223 83L201 111" fill="#FFFDFE" stroke="none" />
+
+    <path d="M186 116C197 144 191 176 169 197C142 222 101 227 68 211C52 203 39 191 31 176" />
+    <path d="M62 193L32 174L54 146" fill="#FFFDFE" stroke="none" />
+
+    <line x1="104" y1="104" x2="104" y2="113" />
+    <line x1="152" y1="104" x2="152" y2="113" />
+    <path d="M96 142C104 155 115 162 128 162C141 162 152 155 160 142" />
+  </g>
+</svg>
