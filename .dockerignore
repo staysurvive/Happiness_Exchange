@@ -1,0 +1,15 @@
+.git
+.runtime_logs
+.venv
+__pycache__
+*.py[cod]
+*.egg-info
+node_modules
+frontend/node_modules
+frontend/dist
+backend/.venv
+backend/.pytest_cache
+backend/.mypy_cache
+backend/.ruff_cache
+backend/uploads
+happy_shop.zip
